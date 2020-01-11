@@ -26,10 +26,10 @@ class MessageCommand extends Command_1.Command {
         }
         //Messages
         const [normal, toggle] = utils_1.partition(guildEntity.roles, role => role.type == RoleEntity_1.RoleType.Normal);
-        for (const roles of utils_1.chunkArray(normal, 24)) {
+        for (const roles of utils_1.chunkArray(normal, 20)) {
             await this.sendMessage(channel, roles, "Normal roles");
         }
-        for (const roles of utils_1.chunkArray(toggle, 24)) {
+        for (const roles of utils_1.chunkArray(toggle, 20)) {
             await this.sendMessage(channel, roles, "Toggle roles");
         }
         return message.say(`Active message sent in ${channel}!`);

@@ -31,11 +31,11 @@ export default class MessageCommand extends Command {
 
         //Messages
         const [normal, toggle] = partition(guildEntity.roles, role => role.type == RoleType.Normal);
-        for(const roles of chunkArray(normal, 24)) {
+        for(const roles of chunkArray(normal, 20)) {
             await this.sendMessage(channel, roles, "Normal roles");
         }
 
-        for(const roles of chunkArray(toggle, 24)) {
+        for(const roles of chunkArray(toggle, 20)) {
             await this.sendMessage(channel, roles, "Toggle roles");
         }
 
