@@ -19,4 +19,20 @@ function emojiIdentifier(str, guild) {
     return null;
 }
 exports.emojiIdentifier = emojiIdentifier;
+function chunkArray(arr, len) {
+    const chunks = [];
+    let i = 0;
+    const n = arr.length;
+    while (i < n) {
+        chunks.push(arr.slice(i, i += len));
+    }
+    return chunks;
+}
+exports.chunkArray = chunkArray;
+function partition(array, isValid) {
+    return array.reduce(([pass, fail], elem) => {
+        return isValid(elem) ? [[...pass, elem], fail] : [pass, [...fail, elem]];
+    }, [[], []]);
+}
+exports.partition = partition;
 //# sourceMappingURL=utils.js.map

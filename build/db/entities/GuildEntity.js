@@ -36,10 +36,6 @@ __decorate([
     __metadata("design:type", String)
 ], GuildEntity.prototype, "channelId", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, default: null }),
-    __metadata("design:type", String)
-], GuildEntity.prototype, "messageId", void 0);
-__decorate([
     typeorm_1.OneToMany(() => RoleEntity_1.RoleEntity, role => role.guild),
     __metadata("design:type", Array)
 ], GuildEntity.prototype, "roles", void 0);

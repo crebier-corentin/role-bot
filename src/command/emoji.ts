@@ -13,7 +13,7 @@ async function setRole(message: CommandMessage, role: Role, emoji: Emoji, type: 
         .andWhere("role.emojiData = :emojiData", {emojiData: emoji.data}).getOne();
 
     if (existingRole != undefined) {
-       return  message.say(`Assigned ${emoji.toMessage()} is already assigned to ${message.guild.roles.get(existingRole.roleId)} (${RoleType[existingRole.type]})`);
+        return message.say(`Assigned ${emoji.toMessage()} is already assigned to ${message.guild.roles.get(existingRole.roleId)} (${RoleType[existingRole.type]})`);
     }
 
     const roleEntity = new RoleEntity();
@@ -58,7 +58,6 @@ export class NormalCommand extends Command {
         return setRole(message, role, emoji, RoleType.Normal);
     }
 }
-
 
 export class ToggleCommand extends Command {
     constructor(client) {

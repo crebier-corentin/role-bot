@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const GuildEntity_1 = require("../db/entities/GuildEntity");
 const Command_1 = require("./Command");
+const RoleEntity_1 = require("../db/entities/RoleEntity");
+const utils_1 = require("../utils");
 class MessageCommand extends Command_1.Command {
     constructor(client) {
         super(client, {
@@ -10,14 +12,7 @@ class MessageCommand extends Command_1.Command {
             memberName: "message",
             description: "Send a message in the active channel",
             guildOnly: true,
-            userPermissions: ['ADMINISTRATOR'],
-            args: [
-                {
-                    key: "text",
-                    prompt: "What will the message be?",
-                    type: "string",
-                },
-            ],
+            userPermissions: ['ADMINISTRATOR']
         });
     }
     async run(message, { text }) {
@@ -29,19 +24,33 @@ class MessageCommand extends Command_1.Command {
         if (channel == undefined) {
             return message.say("Unable to find active channel. Please use `channel` to set the active channel.");
         }
+        //Messages
+        const [normal, toggle] = utils_1.partition(guildEntity.roles, role => role.type == RoleEntity_1.RoleType.Normal);
+        for (const roles of utils_1.chunkArray(normal, 24)) {
+            await this.sendMessage(channel, roles, "Normal roles");
+        }
+        for (const roles of utils_1.chunkArray(toggle, 24)) {
+            await this.sendMessage(channel, roles, "Toggle roles");
+        }
+        return message.say(`Active message sent in ${channel}!`);
+    }
+    async sendMessage(channel, roles, title) {
+        //Build text
+        let text = "";
+        for (const role of roles) {
+            text += `${role.emoji().toMessage()} -> ${channel.guild.roles.get(role.roleId)}\n`;
+        }
+        //Send message
         const activeMessage = await channel.send("", {
             embed: {
-                title: "React to this message!",
+                title: title,
                 description: text
             }
         });
-        guildEntity.messageId = activeMessage.id;
-        await guildEntity.save();
         //Roles reactions
-        for (const role of guildEntity.roles.sort((a, b) => a.type - b.type)) {
+        for (const role of roles) {
             await activeMessage.react(role.emoji().toReact());
         }
-        return message.say(`Active message sent in ${channel}!`);
     }
 }
 exports.default = MessageCommand;

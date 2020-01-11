@@ -1,6 +1,8 @@
 import {Message, TextChannel} from "discord.js";
 import {GuildEntity} from "../db/entities/GuildEntity";
 import {Command} from "./Command";
+import {RoleEntity, RoleType} from "../db/entities/RoleEntity";
+import {chunkArray, partition} from "../utils";
 
 export default class MessageCommand extends Command {
     constructor(client) {
@@ -10,14 +12,7 @@ export default class MessageCommand extends Command {
             memberName: "message",
             description: "Send a message in the active channel",
             guildOnly: true,
-            userPermissions: ['ADMINISTRATOR'],
-            args: [
-                {
-                    key: "text",
-                    prompt: "What will the message be?",
-                    type: "string",
-                },
-            ],
+            userPermissions: ['ADMINISTRATOR']
         });
 
     }
@@ -34,20 +29,38 @@ export default class MessageCommand extends Command {
             return message.say("Unable to find active channel. Please use `channel` to set the active channel.")
         }
 
-        const activeMessage = await channel.send("", {
-            embed: {
-                title: "React to this message!",
-                description: text
-            }
-        }) as Message;
-        guildEntity.messageId = activeMessage.id;
-        await guildEntity.save();
+        //Messages
+        const [normal, toggle] = partition(guildEntity.roles, role => role.type == RoleType.Normal);
+        for(const roles of chunkArray(normal, 24)) {
+            await this.sendMessage(channel, roles, "Normal roles");
+        }
 
-        //Roles reactions
-        for (const role of guildEntity.roles.sort((a, b) => a.type - b.type)) {
-            await activeMessage.react(role.emoji().toReact());
+        for(const roles of chunkArray(toggle, 24)) {
+            await this.sendMessage(channel, roles, "Toggle roles");
         }
 
         return message.say(`Active message sent in ${channel}!`);
+    }
+
+    private async sendMessage(channel: TextChannel, roles: RoleEntity[], title: string): Promise<void> {
+
+        //Build text
+        let text = "";
+        for (const role of roles) {
+            text += `${role.emoji().toMessage()} -> ${channel.guild.roles.get(role.roleId)}\n`;
+        }
+
+        //Send message
+        const activeMessage = await channel.send("", {
+            embed: {
+                title: title,
+                description: text
+            }
+        }) as Message;
+
+        //Roles reactions
+        for (const role of roles) {
+            await activeMessage.react(role.emoji().toReact());
+        }
     }
 }

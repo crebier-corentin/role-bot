@@ -24,3 +24,22 @@ export function emojiIdentifier(str: string, guild: Guild): string | null {
     return null;
 
 }
+
+export function chunkArray<T>(arr: T[], len: number): Array<Array<T>> {
+    const chunks = [];
+    let i = 0;
+    const n = arr.length;
+
+    while (i < n) {
+        chunks.push(arr.slice(i, i += len));
+    }
+
+    return chunks;
+}
+
+export function partition<T>(array: T[], isValid: (value: T) => boolean): [T[], T[]] {
+    return array.reduce(([pass, fail], elem) => {
+        return isValid(elem) ? [[...pass, elem], fail] : [pass, [...fail, elem]];
+    }, [[], []]);
+}
+

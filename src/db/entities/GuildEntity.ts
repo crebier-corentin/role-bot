@@ -15,9 +15,6 @@ export class GuildEntity extends BaseEntity {
     @Column({nullable: true, default: null})
     channelId: string | null;
 
-    @Column({nullable: true, default: null})
-    messageId: string | null;
-
     @OneToMany(() => RoleEntity, role => role.guild)
     roles: RoleEntity[];
 

@@ -37,10 +37,15 @@ const remove_1 = require("./command/remove");
         const emoji = emoji_1.Emoji.parse(packet.d.emoji.id ? `<:${packet.d.emoji.name}:${packet.d.emoji.id}>` : packet.d.emoji.name);
         const roleEntity = await RoleEntity_1.RoleEntity.createQueryBuilder("role")
             .leftJoinAndSelect("role.guild", "guild")
-            .where("guild.messageId = :messageId", { messageId: packet.d.message_id })
+            .where("guild.channelId = :channelId", { channelId: packet.d.channel_id })
             .andWhere("role.emojiData = :emojiData", { emojiData: emoji.data })
             .getOne();
         if (roleEntity == undefined)
+            return;
+        //Message sent by this bot
+        const channel = client.channels.get(packet.d.channel_id);
+        const message = await channel.fetchMessage(packet.d.message_id);
+        if (message.author.id !== client.user.id)
             return;
         const member = client.guilds.get(packet.d.guild_id).member(packet.d.user_id);
         if (member.user.bot)
