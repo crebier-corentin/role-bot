@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class InitialMigration1578770562900 {
     constructor() {
-        this.name = 'InitialMigration1578770562900';
+        this.name = "InitialMigration1578770562900";
     }
     async up(queryRunner) {
         await queryRunner.query("CREATE TABLE `role_entity` (`id` int NOT NULL AUTO_INCREMENT, `roleId` varchar(255) NOT NULL, `emojiType` int NOT NULL, `emojiData` varchar(255) NOT NULL, `type` int NOT NULL, `guildId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB", undefined);

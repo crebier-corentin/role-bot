@@ -26,11 +26,7 @@ export const ToggleReacter: Reacter = {
             .andWhere("role.type = :type", {type: RoleType.Toggle})
             .getMany();
 
-        for (const role of toggleableRoles) {
-            if (member.roles.has(role.roleId)) {
-                await member.removeRole(role.roleId);
-            }
-        }
+        await member.removeRoles(toggleableRoles.map(r => r.roleId));
 
         await member.addRole(roleEntity.roleId);
     },

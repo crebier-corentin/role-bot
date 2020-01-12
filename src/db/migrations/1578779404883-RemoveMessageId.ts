@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
 export class RemoveMessageId1578779404883 implements MigrationInterface {
-    name = 'RemoveMessageId1578779404883'
+    name = "RemoveMessageId1578779404883"
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query("ALTER TABLE `guild_entity` DROP COLUMN `messageId`", undefined);

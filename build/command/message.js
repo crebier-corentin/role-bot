@@ -12,7 +12,7 @@ class MessageCommand extends Command_1.Command {
             memberName: "message",
             description: "Send a message in the active channel",
             guildOnly: true,
-            userPermissions: ['ADMINISTRATOR']
+            userPermissions: ["ADMINISTRATOR"]
         });
     }
     async run(message, { text }) {

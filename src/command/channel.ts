@@ -10,7 +10,7 @@ export default class ChannelCommand extends Command {
             memberName: "channel",
             description: "Set the active channel",
             guildOnly: true,
-            userPermissions: ['ADMINISTRATOR'],
+            userPermissions: ["ADMINISTRATOR"],
             args: [
                 {
                     key: "channel",

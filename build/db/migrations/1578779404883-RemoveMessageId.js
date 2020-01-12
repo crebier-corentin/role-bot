@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class RemoveMessageId1578779404883 {
     constructor() {
-        this.name = 'RemoveMessageId1578779404883';
+        this.name = "RemoveMessageId1578779404883";
     }
     async up(queryRunner) {
         await queryRunner.query("ALTER TABLE `guild_entity` DROP COLUMN `messageId`", undefined);

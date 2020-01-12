@@ -36,7 +36,7 @@ export class NormalCommand extends Command {
             memberName: "normal",
             description: "Assign an emoji to a role",
             guildOnly: true,
-            userPermissions: ['ADMINISTRATOR'],
+            userPermissions: ["ADMINISTRATOR"],
             args: [
                 {
                     key: "role",
@@ -67,7 +67,7 @@ export class ToggleCommand extends Command {
             memberName: "toggle",
             description: "Assign an emoji to a role",
             guildOnly: true,
-            userPermissions: ['ADMINISTRATOR'],
+            userPermissions: ["ADMINISTRATOR"],
             args: [
                 {
                     key: "role",

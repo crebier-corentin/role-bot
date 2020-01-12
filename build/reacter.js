@@ -16,11 +16,7 @@ exports.ToggleReacter = {
             .where("guild.id = :id", { id: roleEntity.guild.id })
             .andWhere("role.type = :type", { type: RoleEntity_1.RoleType.Toggle })
             .getMany();
-        for (const role of toggleableRoles) {
-            if (member.roles.has(role.roleId)) {
-                await member.removeRole(role.roleId);
-            }
-        }
+        await member.removeRoles(toggleableRoles.map(r => r.roleId));
         await member.addRole(roleEntity.roleId);
     },
     async remove(member, roleEntity) {

@@ -12,7 +12,7 @@ export default class MessageCommand extends Command {
             memberName: "message",
             description: "Send a message in the active channel",
             guildOnly: true,
-            userPermissions: ['ADMINISTRATOR']
+            userPermissions: ["ADMINISTRATOR"]
         });
 
     }
