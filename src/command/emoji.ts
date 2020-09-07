@@ -3,9 +3,9 @@ import {Message, Role} from "discord.js";
 import {RoleEntity, RoleType} from "../db/entities/RoleEntity";
 import {GuildEntity} from "../db/entities/GuildEntity";
 import {Emoji} from "../emoji";
-import {CommandMessage} from "discord.js-commando";
+import {CommandoMessage} from "discord.js-commando";
 
-async function setRole(message: CommandMessage, role: Role, emoji: Emoji, type: RoleType): Promise<Message | Message[]> {
+async function setRole(message: CommandoMessage, role: Role, emoji: Emoji, type: RoleType): Promise<Message | Message[]> {
 
     //Check for duplicate
     const existingRole = await RoleEntity.createQueryBuilder("role").leftJoinAndSelect("role.guild", "guild")
@@ -13,7 +13,7 @@ async function setRole(message: CommandMessage, role: Role, emoji: Emoji, type: 
         .andWhere("role.emojiData = :emojiData", {emojiData: emoji.data}).getOne();
 
     if (existingRole != undefined) {
-        return message.say(`Assigned ${emoji.toMessage()} is already assigned to ${message.guild.roles.get(existingRole.roleId)} (${RoleType[existingRole.type]})`);
+        return message.say(`Assigned ${emoji.toMessage()} is already assigned to ${message.guild.roles.cache.get(existingRole.roleId)} (${RoleType[existingRole.type]})`);
     }
 
     const roleEntity = new RoleEntity();

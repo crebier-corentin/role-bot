@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RemoveCommand = void 0;
 const Command_1 = require("./Command");
 const RoleEntity_1 = require("../db/entities/RoleEntity");
 class RemoveCommand extends Command_1.Command {

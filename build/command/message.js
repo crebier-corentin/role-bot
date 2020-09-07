@@ -20,7 +20,7 @@ class MessageCommand extends Command_1.Command {
         if (guildEntity.channelId == null) {
             return message.say("No active channel. Please use `channel` to set the active channel.");
         }
-        const channel = message.guild.channels.find(c => c.id == guildEntity.channelId);
+        const channel = message.guild.channels.resolve(guildEntity.channelId);
         if (channel == undefined) {
             return message.say("Unable to find active channel. Please use `channel` to set the active channel.");
         }
@@ -38,7 +38,7 @@ class MessageCommand extends Command_1.Command {
         //Build text
         let text = "";
         for (const role of roles) {
-            text += `${role.emoji().toMessage()} -> ${channel.guild.roles.get(role.roleId)}\n`;
+            text += `${role.emoji().toMessage()} -> ${channel.guild.roles.cache.get(role.roleId)}\n`;
         }
         //Send message
         const activeMessage = await channel.send("", {

@@ -1,5 +1,5 @@
 import {Command} from "./Command";
-import {CommandMessage} from "discord.js-commando";
+import {CommandoMessage} from "discord.js-commando";
 import {Message} from "discord.js";
 import {Emoji} from "../emoji";
 import {RoleEntity} from "../db/entities/RoleEntity";
@@ -24,7 +24,7 @@ export class RemoveCommand extends Command {
 
     }
 
-    async run(message: CommandMessage, {emoji}: { emoji: Emoji }): Promise<Message | Message[]> {
+    async run(message: CommandoMessage, {emoji}: { emoji: Emoji }): Promise<Message | Message[]> {
 
         const roleEntity = await RoleEntity.createQueryBuilder("role").leftJoinAndSelect("role.guild", "guild")
             .where("guild.guildId = :guildId", {guildId: message.guild.id})

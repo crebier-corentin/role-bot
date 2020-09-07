@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.EmojiArgumentType = exports.Emoji = exports.EmojiType = void 0;
 const utils_1 = require("./utils");
 const discord_js_commando_1 = require("discord.js-commando");
 var EmojiType;
@@ -37,7 +38,7 @@ class EmojiArgumentType extends discord_js_commando_1.ArgumentType {
     }
     validate(value, msg, arg) {
         //Discord emoji
-        if (msg.guild.emojis.find(e => e.toString() === value)) {
+        if (msg.guild.emojis.cache.find(e => e.toString() === value)) {
             return true;
         }
         //Unicode emoji
@@ -47,8 +48,7 @@ class EmojiArgumentType extends discord_js_commando_1.ArgumentType {
         return "Invalid emoji.";
     }
     parse(value, msg, arg) {
-        const tmp = Emoji.parse(value);
-        return tmp;
+        return Emoji.parse(value);
     }
 }
 exports.EmojiArgumentType = EmojiArgumentType;

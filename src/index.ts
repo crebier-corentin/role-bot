@@ -52,11 +52,11 @@ import {GuildChannel, TextChannel} from "discord.js";
         if (roleEntity == undefined) return;
 
         //Message sent by this bot
-        const channel = client.channels.get(packet.d.channel_id) as TextChannel;
-        const message = await channel.fetchMessage(packet.d.message_id);
+        const channel = client.channels.cache.get(packet.d.channel_id) as TextChannel;
+        const message = await channel.messages.fetch(packet.d.message_id);
         if (message.author.id !== client.user.id) return;
 
-        const member = client.guilds.get(packet.d.guild_id).member(packet.d.user_id);
+        const member = client.guilds.cache.get(packet.d.guild_id).member(packet.d.user_id);
         if (member.user.bot) return;
 
         const reacter = reacters.get(roleEntity.type);

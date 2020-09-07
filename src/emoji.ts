@@ -1,5 +1,5 @@
 import {isUnicodeEmoji} from "./utils";
-import {Argument, ArgumentType, CommandMessage, CommandoClient} from "discord.js-commando";
+import {Argument, ArgumentType, CommandoMessage, CommandoClient} from "discord.js-commando";
 
 export enum EmojiType {
     Unicode,
@@ -47,9 +47,9 @@ export class EmojiArgumentType extends ArgumentType {
         super(client, "emoji");
     }
 
-    validate(value: string, msg: CommandMessage, arg: Argument): boolean | string {
+    validate(value: string, msg: CommandoMessage, arg: Argument): boolean | string {
         //Discord emoji
-        if (msg.guild.emojis.find(e => e.toString() === value)) {
+        if (msg.guild.emojis.cache.find(e => e.toString() === value)) {
             return true;
         }
 
@@ -61,8 +61,7 @@ export class EmojiArgumentType extends ArgumentType {
         return "Invalid emoji.";
     }
 
-    parse(value: string, msg: CommandMessage, arg: Argument): Emoji {
-        const tmp = Emoji.parse(value);
-        return tmp;
+    parse(value: string, msg: CommandoMessage, arg: Argument): Emoji {
+        return Emoji.parse(value);
     }
 }

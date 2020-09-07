@@ -12,7 +12,7 @@ export function emojiIdentifier(str: string, guild: Guild): string | null {
     str = str.trim();
 
     //Custom emoji
-    if (guild.emojis.find(e => e.toString() === str)) {
+    if (guild.emojis.cache.find(e => e.toString() === str)) {
         return str;
     }
 

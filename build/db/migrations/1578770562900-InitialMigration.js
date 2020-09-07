@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InitialMigration1578770562900 = void 0;
 class InitialMigration1578770562900 {
     constructor() {
         this.name = "InitialMigration1578770562900";

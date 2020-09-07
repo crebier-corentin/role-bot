@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToggleReacter = exports.NormalReacter = void 0;
 const RoleEntity_1 = require("./db/entities/RoleEntity");
 exports.NormalReacter = {
     async add(member, roleEntity) {
-        await member.addRole(roleEntity.roleId);
+        await member.roles.add(roleEntity.roleId);
     },
     async remove(member, roleEntity) {
-        await member.removeRole(roleEntity.roleId);
+        await member.roles.remove(roleEntity.roleId);
     }
 };
 exports.ToggleReacter = {
@@ -16,11 +17,11 @@ exports.ToggleReacter = {
             .where("guild.id = :id", { id: roleEntity.guild.id })
             .andWhere("role.type = :type", { type: RoleEntity_1.RoleType.Toggle })
             .getMany();
-        await member.removeRoles(toggleableRoles.map(r => r.roleId));
-        await member.addRole(roleEntity.roleId);
+        await member.roles.remove(toggleableRoles.map(r => r.roleId));
+        await member.roles.add(roleEntity.roleId);
     },
     async remove(member, roleEntity) {
-        await member.removeRole(roleEntity.roleId);
+        await member.roles.remove(roleEntity.roleId);
     }
 };
 //# sourceMappingURL=reacter.js.map

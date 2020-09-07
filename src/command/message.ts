@@ -24,18 +24,18 @@ export default class MessageCommand extends Command {
             return message.say("No active channel. Please use `channel` to set the active channel.")
         }
 
-        const channel = message.guild.channels.find(c => c.id == guildEntity.channelId) as TextChannel;
+        const channel = message.guild.channels.resolve(guildEntity.channelId) as TextChannel;
         if (channel == undefined) {
             return message.say("Unable to find active channel. Please use `channel` to set the active channel.")
         }
 
         //Messages
         const [normal, toggle] = partition(guildEntity.roles, role => role.type == RoleType.Normal);
-        for(const roles of chunkArray(normal, 20)) {
+        for (const roles of chunkArray(normal, 20)) {
             await this.sendMessage(channel, roles, "Normal roles");
         }
 
-        for(const roles of chunkArray(toggle, 20)) {
+        for (const roles of chunkArray(toggle, 20)) {
             await this.sendMessage(channel, roles, "Toggle roles");
         }
 
@@ -47,7 +47,7 @@ export default class MessageCommand extends Command {
         //Build text
         let text = "";
         for (const role of roles) {
-            text += `${role.emoji().toMessage()} -> ${channel.guild.roles.get(role.roleId)}\n`;
+            text += `${role.emoji().toMessage()} -> ${channel.guild.roles.cache.get(role.roleId)}\n`;
         }
 
         //Send message

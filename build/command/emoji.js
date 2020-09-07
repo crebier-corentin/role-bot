@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToggleCommand = exports.NormalCommand = void 0;
 const Command_1 = require("./Command");
 const RoleEntity_1 = require("../db/entities/RoleEntity");
 const GuildEntity_1 = require("../db/entities/GuildEntity");
@@ -9,7 +10,7 @@ async function setRole(message, role, emoji, type) {
         .where("guild.guildId = :guildId", { guildId: message.guild.id })
         .andWhere("role.emojiData = :emojiData", { emojiData: emoji.data }).getOne();
     if (existingRole != undefined) {
-        return message.say(`Assigned ${emoji.toMessage()} is already assigned to ${message.guild.roles.get(existingRole.roleId)} (${RoleEntity_1.RoleType[existingRole.type]})`);
+        return message.say(`Assigned ${emoji.toMessage()} is already assigned to ${message.guild.roles.cache.get(existingRole.roleId)} (${RoleEntity_1.RoleType[existingRole.type]})`);
     }
     const roleEntity = new RoleEntity_1.RoleEntity();
     roleEntity.emojiData = emoji.data;

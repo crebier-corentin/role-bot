@@ -9,11 +9,11 @@ export interface Reacter {
 
 export const NormalReacter: Reacter = {
     async add(member: GuildMember, roleEntity: RoleEntity): Promise<void> {
-        await member.addRole(roleEntity.roleId);
+        await member.roles.add(roleEntity.roleId);
     },
 
     async remove(member: GuildMember, roleEntity: RoleEntity): Promise<void> {
-        await member.removeRole(roleEntity.roleId);
+        await member.roles.remove(roleEntity.roleId);
     }
 };
 
@@ -26,12 +26,12 @@ export const ToggleReacter: Reacter = {
             .andWhere("role.type = :type", {type: RoleType.Toggle})
             .getMany();
 
-        await member.removeRoles(toggleableRoles.map(r => r.roleId));
+        await member.roles.remove(toggleableRoles.map(r => r.roleId));
 
-        await member.addRole(roleEntity.roleId);
+        await member.roles.add(roleEntity.roleId);
     },
 
     async remove(member: GuildMember, roleEntity: RoleEntity): Promise<void> {
-        await member.removeRole(roleEntity.roleId);
+        await member.roles.remove(roleEntity.roleId);
     }
 };

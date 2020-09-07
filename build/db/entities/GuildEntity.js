@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var GuildEntity_1;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.GuildEntity = void 0;
 const typeorm_1 = require("typeorm");
 const RoleEntity_1 = require("./RoleEntity");
 let GuildEntity = GuildEntity_1 = class GuildEntity extends typeorm_1.BaseEntity {

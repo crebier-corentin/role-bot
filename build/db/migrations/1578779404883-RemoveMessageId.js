@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RemoveMessageId1578779404883 = void 0;
 class RemoveMessageId1578779404883 {
     constructor() {
         this.name = "RemoveMessageId1578779404883";
