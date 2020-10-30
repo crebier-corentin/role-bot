@@ -47,7 +47,7 @@ const remove_1 = require("./command/remove");
         const message = await channel.messages.fetch(packet.d.message_id);
         if (message.author.id !== client.user.id)
             return;
-        const member = client.guilds.cache.get(packet.d.guild_id).member(packet.d.user_id);
+        const member = await (await client.guilds.fetch(packet.d.guild_id)).members.fetch(packet.d.user_id);
         if (member.user.bot)
             return;
         const reacter = reacters.get(roleEntity.type);
@@ -63,4 +63,5 @@ const remove_1 = require("./command/remove");
     });
     client.login(process.env.DISCORD_TOKEN);
 })();
+process.on("unhandledRejection", error => { throw error; });
 //# sourceMappingURL=index.js.map
