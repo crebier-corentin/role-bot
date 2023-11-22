@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "discord.js": "^12.3.1",
-    "discord.js-commando": "git://github.com/discordjs/Commando.git#c5f4b209e89c648cb67007684468b9c51f4aa502",
+    "discord.js-commando": "git+https://github.com/discordjs/Commando.git#c5f4b209e89c648cb67007684468b9c51f4aa502",
     "dotenv": "^8.0.0",
     "mysql": "^2.17.1",
     "reflect-metadata": "^0.1.13",

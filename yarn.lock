@@ -406,9 +406,9 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
 
-"discord.js-commando@git://github.com/discordjs/Commando.git#c5f4b209e89c648cb67007684468b9c51f4aa502":
+"discord.js-commando@git+https://github.com/discordjs/Commando.git#c5f4b209e89c648cb67007684468b9c51f4aa502":
   version "0.11.0-dev"
-  resolved "git://github.com/discordjs/Commando.git#c5f4b209e89c648cb67007684468b9c51f4aa502"
+  resolved "git+https://github.com/discordjs/Commando.git#c5f4b209e89c648cb67007684468b9c51f4aa502"
   dependencies:
     common-tags "^1.8.0"
     require-all "^3.0.0"
