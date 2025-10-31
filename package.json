@@ -20,7 +20,7 @@
     "dotenv": "^8.0.0",
     "mysql": "^2.17.1",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.0"
+    "typeorm": "^0.3.26"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
